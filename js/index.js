@@ -9,15 +9,18 @@ let count = 0;
 let word = [
   "Alouette",
   "Gentil",
-  "Malin",
-  "Sheitan",
-  "Tableau",
-  "Portable",
-  "Canette",
-  "Inconstitutionellement",
-  "Carapute",
-  "Hydropute",
-  "Herbopute"
+  "Malin",  
+  "voiture",
+  "rare",
+  "tableau",
+  "portable",
+  "canette",
+  "inconstitutionellement",
+  "bouteille",
+  "streaming",
+  "chat",
+  "fauteuil",
+  "parking"
 ];
 //initialise une fonction a 0
 let nbr_rand = 0;
@@ -61,12 +64,14 @@ function analyz() {
   }
   console.log(stockUnderscore);
   console.log(mot_cache);
-  
-  if (!trouve) {
+  if (stockUnderscore === ceQueTuVeux) {
+    alert("Vous echapper a la mort !");
+  }
+   if (!trouve) {
     count++;
     console.log(count);
   }
-  if (count == 1) {
+  else if (count == 1) {
     //sol
     ctx.beginPath();
     ctx.fillRect(0, 480, 600, 120);
