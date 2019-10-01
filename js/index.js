@@ -5,7 +5,7 @@ let whatYouWant;
 let screen = document.getElementById("lettres");
 let count = 0;
 
-//liste de mots a chercher
+//the words to find
 let word = [
   "Alouette",
   "Gentil",
@@ -22,26 +22,26 @@ let word = [
   "fauteuil",
   "parking"
 ];
-//initialise une fonction a 0
+
 let nbr_rand = 0;
-//je declare une fonction mot_cache dans laquelle je vais stocker le mot selectionné aleatoirement
+//declare a new variable for the secret word
 let secret_word;
-//j'utilise la fonction Math pour selectionné un mot aléatoirement dans le tableau de mot word
+// I use the Math function to select a word randomly in the word table
 nbr_rand = Math.round(Math.random() * word.length);
-//je stocke le mot aléatoire dans la variable mot_cache
+//I store the random word in the secret_word variable
 secret_word = word[nbr_rand];
-// je declare une fonction pour remplacer les lettres qui compose le mot aléatoire par des undescores
+//I declare a function to replace the letters that make up the random word by undescores
 function newWords() {
-  //prend un mot aléatoirement
+  //take a word randomly
   nbr_rand = Math.round(Math.random() * word.length);
   secret_word = word[nbr_rand];
-  //j'initialise a 0 la variable dans laquelle sera stocke les underscores
+  //I initialize at 0 the variable in which the underscores will be stored
   let newWord = "";
   for (let i = 0; i < secret_word.length; i++) {
     newWord += "_";
   }
   /* console.log(mot_cache); */
-  //je remplace les lettres par les underscores
+  //i replace the letters by the underscores
   document.getElementById("lettres").innerHTML = newWord;
   stockUnderscore = newWord.split("");
   console.log(stockUnderscore);
@@ -49,29 +49,29 @@ function newWords() {
   console.log(whatYouWant);
 }
 
-//j'ajoute une action au click du bouton commencer qui affiche un mot caché
+//I add an action at the click of the start button that displays a hidden word
 let p = document.getElementById("newGame");
 p.addEventListener("click", newWords);
-//fonction qui permet de comparer la lettre rentrer avec le mot cache et qui remplace l'underscore par cette lettre si elle est presente dans le mot
+//function that compares the letter entered with the secret_word and that replaces the underscore with this letter if it is present in the word
 function analyz() {
   let trouve = false;
-  //je fais une boucle pour verifier dans le tableau d'underscore et celui du mot cacher
+  //I make a loop to check in the table of underscore and that of the word hide
   for (let i = 0; i < whatYouWant.length; i++) {
-    //si la lettre rentrer est presente au meme index que celui du tableau du mot caché
+    //if the letter entered is present at the same index as that of the table of the hidden word
     if (whatYouWant[i] === letters.value) {
       stockUnderscore[i] = whatYouWant[i];
-      //je joins cette lettre avec la tableau d'underscore pour l'afficher dans le mot caché
+      //I join this letter with the underscore table to display it in the hidden word
       screen.textContent = stockUnderscore.join("");
       trouve = true;
     }
   }
   console.log(stockUnderscore);
   console.log(secret_word);
-  //si le mot est complet , il nous affiche une fenetre alert
+  //if the word is completed , a alert window appears
   if (stockUnderscore === whatYouWant) {
     alert("Vous echapper a la mort !");
   }
-  //si la lettre n'est pas dans le mot , on ajoute 1 au compteur pour pouvoir afficher 1 a 1 les parties du canvas
+  //if the letter is not in the word, we add 1 to the counter to be able to display 1 to 1 the parts of the canvas
    if (!trouve) {
     count++;
     console.log(count);
