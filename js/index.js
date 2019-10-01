@@ -1,8 +1,8 @@
 let canvas = document.getElementById("cnv");
 let ctx = canvas.getContext("2d");
 let stockUnderscore = [];
-let ceQueTuVeux;
-let ecran = document.getElementById("lettres");
+let whatYouWant;
+let screen = document.getElementById("lettres");
 let count = 0;
 
 //liste de mots a chercher
@@ -25,19 +25,19 @@ let word = [
 //initialise une fonction a 0
 let nbr_rand = 0;
 //je declare une fonction mot_cache dans laquelle je vais stocker le mot selectionné aleatoirement
-let mot_cache;
+let secret_word;
 //j'utilise la fonction Math pour selectionné un mot aléatoirement dans le tableau de mot word
 nbr_rand = Math.round(Math.random() * word.length);
 //je stocke le mot aléatoire dans la variable mot_cache
-mot_cache = word[nbr_rand];
+secret_word = word[nbr_rand];
 // je declare une fonction pour remplacer les lettres qui compose le mot aléatoire par des undescores
-function nouveauMot() {
+function newWords() {
   //prend un mot aléatoirement
   nbr_rand = Math.round(Math.random() * word.length);
-  mot_cache = word[nbr_rand];
+  secret_word = word[nbr_rand];
   //j'initialise a 0 la variable dans laquelle sera stocke les underscores
   let newWord = "";
-  for (let i = 0; i < mot_cache.length; i++) {
+  for (let i = 0; i < secret_word.length; i++) {
     newWord += "_";
   }
   /* console.log(mot_cache); */
@@ -45,28 +45,33 @@ function nouveauMot() {
   document.getElementById("lettres").innerHTML = newWord;
   stockUnderscore = newWord.split("");
   console.log(stockUnderscore);
-  ceQueTuVeux = mot_cache.split("");
-  console.log(ceQueTuVeux);
+  whatYouWant = secret_word.split("");
+  console.log(whatYouWant);
 }
 
 //j'ajoute une action au click du bouton commencer qui affiche un mot caché
 let p = document.getElementById("newGame");
-p.addEventListener("click", nouveauMot);
-
+p.addEventListener("click", newWords);
+//fonction qui permet de comparer la lettre rentrer avec le mot cache et qui remplace l'underscore par cette lettre si elle est presente dans le mot
 function analyz() {
   let trouve = false;
-  for (let i = 0; i < ceQueTuVeux.length; i++) {
-    if (ceQueTuVeux[i] === letters.value) {
-      stockUnderscore[i] = ceQueTuVeux[i];
-      ecran.textContent = stockUnderscore.join("");
+  //je fais une boucle pour verifier dans le tableau d'underscore et celui du mot cacher
+  for (let i = 0; i < whatYouWant.length; i++) {
+    //si la lettre rentrer est presente au meme index que celui du tableau du mot caché
+    if (whatYouWant[i] === letters.value) {
+      stockUnderscore[i] = whatYouWant[i];
+      //je joins cette lettre avec la tableau d'underscore pour l'afficher dans le mot caché
+      screen.textContent = stockUnderscore.join("");
       trouve = true;
     }
   }
   console.log(stockUnderscore);
-  console.log(mot_cache);
-  if (stockUnderscore === ceQueTuVeux) {
+  console.log(secret_word);
+  //si le mot est complet , il nous affiche une fenetre alert
+  if (stockUnderscore === whatYouWant) {
     alert("Vous echapper a la mort !");
   }
+  //si la lettre n'est pas dans le mot , on ajoute 1 au compteur pour pouvoir afficher 1 a 1 les parties du canvas
    if (!trouve) {
     count++;
     console.log(count);
